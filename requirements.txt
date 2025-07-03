@@ -3,4 +3,5 @@ uvicorn[standard]
 scikit-learn
 pandas
 joblib
-pytest
+pytestmlflow==2.16.2
+httpx
