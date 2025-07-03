@@ -30,10 +30,5 @@ def predict(data: DiabetesInput):
         prediction = model.predict(input_data)[0]
         return {"diabetic": bool(prediction)}
     except Exception as e:
-
-
-@app.get("/health")
-def health():
-    return {"status": "healthy"}
-
-raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+        print(f"Error during prediction: {str(e)}")
+        raise HTTPException(status_code=500, detail="Prediction failed")
