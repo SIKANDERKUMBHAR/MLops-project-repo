@@ -1,15 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+import joblib
 import numpy as np
-import mlflow.sklearn
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Load model from MLflow (replace <run_id> with actual run ID or use MLflow client to fetch latest)
 try:
-    model = mlflow.sklearn.load_model("runs:/<run_id>/diabetes_model")
+    model = joblib.load("diabetes_model.pkl")
 except Exception as e:
     raise Exception(f"Failed to load model: {str(e)}")
 
@@ -31,4 +30,10 @@ def predict(data: DiabetesInput):
         prediction = model.predict(input_data)[0]
         return {"diabetic": bool(prediction)}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
+
+raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
