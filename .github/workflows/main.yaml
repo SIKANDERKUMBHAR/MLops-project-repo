@@ -15,15 +15,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Install Docker
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker.io
-    - name: Add user to Docker group
-      run: |
-        sudo groupadd docker || true
-        sudo usermod -aG docker $USER
-        newgrp docker || true
+    # - name: Install Docker
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y docker.io
+    # - name: Add user to Docker group
+    #   run: |
+    #     sudo groupadd docker || true
+    #     sudo usermod -aG docker $USER
+    #     newgrp docker || true
     - name: Run training
       run: python train.py
     # - name: Verify model file
